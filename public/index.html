@@ -42,9 +42,9 @@
 <div class="card bg-dark text-white" style="width: 18rem; min-height: 10rem;" id="notice-${notices.id}">
   <div class="card-body">
     <div class="d-flex align-items-center justify-content-end gap-2">
-    <button onclick="deletePost(${notices.id})" class="btn btn-outline-danger "><i class="fa-solid fa-trash-can fa-xs "></i></button>
+    <button onclick="deletePost(${notices.id})" type="button" class="btn btn-outline-danger "><i class="fa-solid fa-trash-can fa-xs "></i></button>
     
-     <button onclick="updatePost(${notices.id})" class="btn btn-outline-primary "><i class="fa-solid fa-pen fa-xs"></i></button>
+     <button onclick="updatePost(${notices.id})" type="button" class="btn btn-outline-primary "><i class="fa-solid fa-pen fa-xs"></i></button>
      </div>
     <p class="card-text" style="font-size: 1.2rem;">${notices.content}</p>
    
@@ -88,8 +88,13 @@
         }
 
         function deletePost(id){
+            console.log(id);
+            fetch('/delete-story/' + id, { method: 'DELETE' })
+        .catch(error => console.error('Error:', error));
             axios.delete('/delete-post/' + id).then(response => {
-                console.log(response);
+                if(response.data.success){
+                    window.location.href = '/';
+                }
             }).catch(error => {
                 console.error(error);
             })

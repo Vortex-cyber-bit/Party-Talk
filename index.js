@@ -63,7 +63,7 @@ app.listen(port, () => {
     `);
     insertStoryCommand.run({content});
     // res.send(story)
-    res.status(201).redirect('/');
+    res.redirect('/');
   }) 
 
   app.post('/update-post/:id', (req, res) => {
@@ -71,14 +71,14 @@ app.listen(port, () => {
     const { content } = req.body;
     console.log(id)
     updatePost(id, content);
-    res.status(201).redirect('/');
+    res.redirect('/');
   });
 
   app.delete('/delete-post/:id', (req, res) => {
     const { id } = req.params;
     console.log(id)
     deletePost(id);
-    res.status(201).redirect('/');
+    res.json({success: true});
   });
   
   app.get('/notices', (req, res) => {
